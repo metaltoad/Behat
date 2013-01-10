@@ -50,14 +50,15 @@ class AnnotatedLoader implements LoaderInterface
      * @param DefinitionDispatcher $definitionDispatcher
      * @param HookDispatcher       $hookDispatcher
      */
-    public function __construct(DefinitionDispatcher $definitionDispatcher, HookDispatcher $hookDispatcher)
+    public function __construct(HookDispatcher $hookDispatcher)
     {
-        $this->definitionDispatcher = $definitionDispatcher;
         $this->hookDispatcher       = $hookDispatcher;
         $this->availableAnnotations = implode("|", array_keys($this->annotationClasses));
-        $definitionDispatcher->setDefinitionLoader($this);
     }
 
+    public function setDispatcher(DefinitionDispatcher $definitionDispatcher) {
+        $this->definitionDispatcher = $definitionDispatcher;
+    }
     /**
      * Checks if loader supports provided context.
      *

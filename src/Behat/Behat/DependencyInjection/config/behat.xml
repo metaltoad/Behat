@@ -181,8 +181,10 @@
             <tag name="behat.context.loader" />
         </service>
         <service id="behat.context.loader.annotated" class="%behat.context.loader.annotated.class%">
-            <argument type="service" id="behat.definition.dispatcher" />
             <argument type="service" id="behat.hook.dispatcher" />
+            <call method="setDispatcher">
+                <argument type="service" id="behat.definition.dispatcher" />
+            </call>
             <tag name="behat.context.loader" />
         </service>
         <service id="behat.context.loader.closured" class="%behat.context.loader.closured.class%">
@@ -203,6 +205,9 @@
         <service id="behat.definition.dispatcher" class="%behat.definition.dispatcher.class%">
             <argument type="service" id="behat.definition.proposal_dispatcher" />
             <argument type="service" id="behat.translator" />
+            <call method="setContextLoader">
+                <argument type="service" id="behat.context.loader.annotated" />
+            </call>
         </service>
         <service id="behat.definition.proposal_dispatcher" class="%behat.definition.proposal_dispatcher.class%" />
         <service id="behat.definition.proposal.closured" class="%behat.definition.proposal.closured.class%">
